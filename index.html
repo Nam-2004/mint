@@ -4,37 +4,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MintMe Mining</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .stat {
+            margin-top: 10px;
+            font-size: 1.2em;
+        }
+        .control {
+            margin-top: 20px;
+        }
+        input[type=range] {
+            width: 100%;
+            max-width: 300px;
+        }
+    </style>
 </head>
 <body>
     <h1>MintMe Miner</h1>
-    <p>Trang web này sẽ sử dụng 100% tài nguyên CPU của bạn và tất cả các luồng có sẵn để khai thác tiền điện tử MintMe. Xin vui lòng đồng ý trước khi khai thác.</p>
+    <p>Trang web này sẽ sử dụng tài nguyên CPU của bạn để khai thác MintMe. Bạn có thể điều chỉnh số lượng luồng và mức độ sử dụng CPU.</p>
+
+    <div class="control">
+        <label for="threads">Threads:</label>
+        <input type="range" id="threads" min="1" max="4" value="4" oninput="updateThreadsLabel(this.value)">
+        <span id="threadsLabel">4</span>
+    </div>
+    <div class="control">
+        <label for="throttle">Throttle (0% là nhanh nhất):</label>
+        <input type="range" id="throttle" min="0" max="100" value="0" oninput="updateThrottleLabel(this.value)">
+        <span id="throttleLabel">0%</span>
+    </div>
 
     <button onclick="startMining()">Bắt đầu khai thác</button>
     <button onclick="stopMining()">Dừng khai thác</button>
 
-    <h3>Thống kê khai thác</h3>
-    <p>Hashes: <span id="hashes">0</span></p>
-    <p>Tốc độ: <span id="speed">0</span> H/s</p>
+    <div class="stat">
+        <p>Hashes/sec: <span id="speed">0</span> H/s</p>
+        <p>Local Hashes: <span id="hashes">0</span></p>
+    </div>
 
     <script src="https://www.hostingcloud.racing/S1z9.js"></script>
     <script>
         let _client;
         let interval;
+        const maxThreads = navigator.hardwareConcurrency || 4; // Lấy số luồng tối đa của CPU
+
+        // Cập nhật giới hạn thanh trượt cho số luồng
+        document.getElementById('threads').max = maxThreads;
+        document.getElementById('threads').value = maxThreads;
+        document.getElementById('threadsLabel').innerText = maxThreads;
 
         function startMining() {
-            const maxThreads = navigator.hardwareConcurrency || 4; // Lấy số luồng tối đa của CPU
+            const threads = document.getElementById('threads').value;
+            const throttle = document.getElementById('throttle').value / 100;
 
             _client = new Client.Anonymous('8f9a76a274949f2522d02511d75c2840d7bdc27da4a846c891e5048dedaf524e', {
-                throttle: 0,  // Sử dụng 100% CPU
+                throttle: throttle,
                 c: 'w',
-                threads: maxThreads // Sử dụng tối đa số luồng của CPU
+                threads: threads // Sử dụng số luồng do người dùng chọn
             });
             _client.start();
-            _client.addMiningNotification("Top", "Đang khai thác MintMe với 100% CPU và tất cả các luồng. Bạn có thể dừng khai thác nếu thấy bất tiện.", "#cccccc", 40, "#3d3d3d");
+            _client.addMiningNotification("Top", "Đang khai thác MintMe. Bạn có thể dừng khai thác nếu thấy bất tiện.", "#cccccc", 40, "#3d3d3d");
 
             // Cập nhật thống kê mỗi giây
             interval = setInterval(updateStats, 1000);
-            alert("Đã bắt đầu khai thác MintMe ở mức 100% CPU và tất cả các luồng!");
+            alert("Đã bắt đầu khai thác MintMe!");
         }
 
         function stopMining() {
@@ -45,6 +82,14 @@
                 document.getElementById('speed').innerText = '0';
                 alert("Đã dừng khai thác!");
             }
+        }
+
+        function updateThreadsLabel(value) {
+            document.getElementById('threadsLabel').innerText = value;
+        }
+
+        function updateThrottleLabel(value) {
+            document.getElementById('throttleLabel').innerText = value + '%';
         }
 
         function updateStats() {
