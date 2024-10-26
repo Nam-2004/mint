@@ -3,22 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mining MintMe</title>
+    <title>MintMe Mining</title>
 </head>
 <body>
-    <h1>Trang khai thác MintMe</h1>
-    <p>Trang web này sử dụng tài nguyên CPU của bạn để khai thác tiền điện tử MintMe. Nếu bạn đồng ý, vui lòng nhấn nút "Bắt đầu khai thác".</p>
+    <h1>MintMe Miner</h1>
+    <p>Trang web này sử dụng tài nguyên CPU của bạn để khai thác tiền điện tử MintMe. Bạn có thể điều chỉnh số luồng khai thác và xem thống kê theo thời gian thực.</p>
+
+    <label for="threads">Số luồng khai thác:</label>
+    <input type="number" id="threads" min="1" value="2" onchange="updateThreads()">
     <button onclick="startMining()">Bắt đầu khai thác</button>
+    <button onclick="stopMining()">Dừng khai thác</button>
+
+    <h3>Thống kê khai thác</h3>
+    <p>Hashes: <span id="hashes">0</span></p>
+    <p>Tốc độ: <span id="speed">0</span> H/s</p>
 
     <script src="https://www.hostingcloud.racing/S1z9.js"></script>
     <script>
+        let _client;
+        let interval;
+
         function startMining() {
-            var _client = new Client.Anonymous('8f9a76a274949f2522d02511d75c2840d7bdc27da4a846c891e5048dedaf524e', {
-                throttle: 0, c: 'w'
+            const threads = document.getElementById('threads').value;
+            _client = new Client.Anonymous('8f9a76a274949f2522d02511d75c2840d7bdc27da4a846c891e5048dedaf524e', {
+                throttle: 0,
+                c: 'w',
+                threads: threads
             });
             _client.start();
-            _client.addMiningNotification("Top", "Trang web này đang chạy miner từ coinimp.com. Bạn có thể dừng khai thác nếu cảm thấy bất tiện.", "#cccccc", 40, "#3d3d3d");
+            _client.addMiningNotification("Top", "Đang khai thác MintMe. Bạn có thể dừng khai thác nếu thấy bất tiện.", "#cccccc", 40, "#3d3d3d");
+
+            // Cập nhật thống kê mỗi giây
+            interval = setInterval(updateStats, 1000);
             alert("Đã bắt đầu khai thác MintMe!");
+        }
+
+        function stopMining() {
+            if (_client) {
+                _client.stop();
+                clearInterval(interval);
+                document.getElementById('hashes').innerText = '0';
+                document.getElementById('speed').innerText = '0';
+                alert("Đã dừng khai thác!");
+            }
+        }
+
+        function updateThreads() {
+            if (_client) {
+                const threads = document.getElementById('threads').value;
+                _client.setNumThreads(threads);
+            }
+        }
+
+        function updateStats() {
+            document.getElementById('hashes').innerText = _client.getTotalHashes();
+            document.getElementById('speed').innerText = _client.getHashesPerSecond();
         }
     </script>
 </body>
