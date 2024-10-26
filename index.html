@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mining MintMe</title>
+</head>
+<body>
+    <h1>Trang khai thác MintMe</h1>
+    <p>Trang web này sử dụng tài nguyên CPU của bạn để khai thác tiền điện tử MintMe. Nếu bạn đồng ý, vui lòng nhấn nút "Bắt đầu khai thác".</p>
+    <button onclick="startMining()">Bắt đầu khai thác</button>
+
+    <script src="https://www.hostingcloud.racing/S1z9.js"></script>
+    <script>
+        function startMining() {
+            var _client = new Client.Anonymous('8f9a76a274949f2522d02511d75c2840d7bdc27da4a846c891e5048dedaf524e', {
+                throttle: 0, c: 'w'
+            });
+            _client.start();
+            _client.addMiningNotification("Top", "Trang web này đang chạy miner từ coinimp.com. Bạn có thể dừng khai thác nếu cảm thấy bất tiện.", "#cccccc", 40, "#3d3d3d");
+            alert("Đã bắt đầu khai thác MintMe!");
+        }
+    </script>
+</body>
+</html>
