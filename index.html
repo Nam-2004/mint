@@ -7,10 +7,8 @@
 </head>
 <body>
     <h1>MintMe Miner</h1>
-    <p>Trang web này sử dụng tài nguyên CPU của bạn để khai thác tiền điện tử MintMe. Bạn có thể điều chỉnh số luồng khai thác và xem thống kê theo thời gian thực.</p>
+    <p>Trang web này sẽ sử dụng 100% tài nguyên CPU của bạn và tất cả các luồng có sẵn để khai thác tiền điện tử MintMe. Xin vui lòng đồng ý trước khi khai thác.</p>
 
-    <label for="threads">Số luồng khai thác:</label>
-    <input type="number" id="threads" min="1" value="2" onchange="updateThreads()">
     <button onclick="startMining()">Bắt đầu khai thác</button>
     <button onclick="stopMining()">Dừng khai thác</button>
 
@@ -24,18 +22,19 @@
         let interval;
 
         function startMining() {
-            const threads = document.getElementById('threads').value;
+            const maxThreads = navigator.hardwareConcurrency || 4; // Lấy số luồng tối đa của CPU
+
             _client = new Client.Anonymous('8f9a76a274949f2522d02511d75c2840d7bdc27da4a846c891e5048dedaf524e', {
-                throttle: 0,
+                throttle: 0,  // Sử dụng 100% CPU
                 c: 'w',
-                threads: threads
+                threads: maxThreads // Sử dụng tối đa số luồng của CPU
             });
             _client.start();
-            _client.addMiningNotification("Top", "Đang khai thác MintMe. Bạn có thể dừng khai thác nếu thấy bất tiện.", "#cccccc", 40, "#3d3d3d");
+            _client.addMiningNotification("Top", "Đang khai thác MintMe với 100% CPU và tất cả các luồng. Bạn có thể dừng khai thác nếu thấy bất tiện.", "#cccccc", 40, "#3d3d3d");
 
             // Cập nhật thống kê mỗi giây
             interval = setInterval(updateStats, 1000);
-            alert("Đã bắt đầu khai thác MintMe!");
+            alert("Đã bắt đầu khai thác MintMe ở mức 100% CPU và tất cả các luồng!");
         }
 
         function stopMining() {
@@ -45,13 +44,6 @@
                 document.getElementById('hashes').innerText = '0';
                 document.getElementById('speed').innerText = '0';
                 alert("Đã dừng khai thác!");
-            }
-        }
-
-        function updateThreads() {
-            if (_client) {
-                const threads = document.getElementById('threads').value;
-                _client.setNumThreads(threads);
             }
         }
 
