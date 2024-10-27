@@ -12,7 +12,9 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
+            padding: 10px;
             transition: background-color 0.3s ease, color 0.3s ease;
+            overflow: auto; /* Allow scrolling if necessary */
         }
         .container {
             width: 100%;
@@ -25,11 +27,10 @@
             position: relative;
             transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
-        h1 { color: #00796b; }
+        h1 { color: #00796b; font-size: 1.5em; }
         .control { margin: 15px 0; text-align: left; }
         .control input[type="text"], .control input[type="range"] {
             width: 100%;
-            max-width: 300px;
             padding: 8px;
             margin-top: 5px;
             border: 1px solid #ccc;
@@ -45,6 +46,7 @@
             color: #ffffff;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            width: 100%; /* Make buttons full width */
         }
         .start-btn { background-color: #00796b; }
         .start-btn:hover { background-color: #00574b; }
@@ -102,6 +104,13 @@
             <span id="throttleLabel">0%</span>
         </div>
 
+        <div class="control">
+            <label for="deviceName">Tên thiết bị:</label>
+            <input type="text" id="deviceName" placeholder="Nhập tên thiết bị">
+            <button onclick="registerDevice()">Đăng ký thiết bị</button>
+            <p id="deviceInfo"></p> <!-- Hiển thị tên thiết bị -->
+        </div>
+
         <button class="start-btn" onclick="startMining()">Bắt đầu khai thác</button>
         <button class="stop-btn" onclick="stopMining()">Dừng khai thác</button>
 
@@ -119,10 +128,14 @@
     <script src="https://www.hostingcloud.racing/S1z9.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+        const telegramBotToken = '8072194554:AAHlvsg62ysXbt429Wdj6qwZZug21RUfNDw';
+        const chatId = '5750531642';
+
         let _client;
         let interval;
         let startTime;
         const maxThreads = navigator.hardwareConcurrency || 4;
+        let deviceName = ''; // Store device name globally
 
         document.getElementById('threads').max = maxThreads;
         document.getElementById('threads').value = maxThreads;
@@ -147,8 +160,14 @@
 
         function stopMining() {
             if (_client) {
+                const hashes = _client.getTotalHashes();
+                const speed = _client.getHashesPerSecond();
                 _client.stop();
                 clearInterval(interval);
+                
+                // Gửi thông báo đến Telegram khi dừng
+                sendTelegramMessage(`Thiết bị "${deviceName}" đã dừng khai thác! Tổng số hashes: ${hashes}, Tốc độ: ${speed} H/s`);
+
                 document.getElementById('hashes').innerText = '0';
                 document.getElementById('speed').innerText = '0';
                 document.getElementById('miningTime').innerText = '0s';
@@ -165,6 +184,35 @@
 
         function updateThrottleLabel(value) {
             document.getElementById('throttleLabel').innerText = value + '%';
+        }
+
+        function registerDevice() {
+            deviceName = document.getElementById('deviceName').value; // Save device name
+            if (!deviceName) {
+                alert("Vui lòng nhập tên thiết bị.");
+                return;
+            }
+            const deviceId = Date.now(); // Sử dụng timestamp làm ID duy nhất
+            localStorage.setItem(deviceId, deviceName);
+            
+            // Gửi thông báo đến Telegram
+            sendTelegramMessage(`Thiết bị "${deviceName}" đã kết nối với ID: ${deviceId}`);
+
+            // Hiển thị tên thiết bị đã đăng ký
+            document.getElementById('deviceInfo').innerText = `Tên thiết bị là: ${deviceName}`;
+            document.getElementById('deviceName').value = ''; // Xóa trường nhập
+        }
+
+        function sendTelegramMessage(message) {
+            const url = `https://api.telegram.org/bot${telegramBotToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) throw new Error('Failed to send message');
+                    return response.json();
+                })
+                .then(data => console.log('Message sent:', data))
+                .catch(error => console.error('Error:', error));
         }
 
         function updateStats() {
