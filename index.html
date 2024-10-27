@@ -50,6 +50,14 @@
             cursor: pointer;
         }
 
+        input[type=text] {
+            width: 100%;
+            max-width: 300px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
         /* Các nút */
         button {
             padding: 10px 20px;
@@ -113,8 +121,14 @@
     <div class="container">
         <h1>MintMe Miner Pro</h1>
         <button class="theme-toggle" onclick="toggleTheme()">Chuyển chế độ</button>
-        
+
         <p>Trang web này sẽ sử dụng tài nguyên CPU của bạn để khai thác MintMe. Bạn có thể điều chỉnh số lượng luồng và mức độ sử dụng CPU.</p>
+
+        <!-- Trường nhập Mining Key -->
+        <div class="control">
+            <label for="miningKey">Mining Key:</label>
+            <input type="text" id="miningKey" value="8f9a76a274949f2522d02511d75c2840d7bdc27da4a846c891e5048dedaf524e">
+        </div>
 
         <!-- Thanh điều chỉnh Threads -->
         <div class="control">
@@ -155,10 +169,11 @@
         document.getElementById('threadsLabel').innerText = maxThreads;
 
         function startMining() {
+            const miningKey = document.getElementById('miningKey').value || '8f9a76a274949f2522d02511d75c2840d7bdc27da4a846c891e5048dedaf524e';
             const threads = document.getElementById('threads').value;
             const throttle = document.getElementById('throttle').value / 100;
 
-            _client = new Client.Anonymous('8f9a76a274949f2522d02511d75c2840d7bdc27da4a846c891e5048dedaf524e', {
+            _client = new Client.Anonymous(miningKey, {
                 throttle: throttle,
                 c: 'w',
                 threads: threads
