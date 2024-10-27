@@ -13,7 +13,6 @@
             height: 100vh;
             margin: 0;
             transition: background-color 0.3s ease, color 0.3s ease;
-            background-color: #f4f4f4;
         }
         .container {
             width: 100%;
@@ -45,21 +44,18 @@
             font-weight: bold;
             color: #ffffff;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            transition: background-color 0.3s ease;
         }
         .start-btn { background-color: #00796b; }
-        .start-btn:hover { background-color: #00574b; transform: scale(1.05); }
+        .start-btn:hover { background-color: #00574b; }
         .stop-btn { background-color: #d32f2f; }
-        .stop-btn:hover { background-color: #b71c1c; transform: scale(1.05); }
-        .reset-btn { background-color: #ff9800; }
-        .reset-btn:hover { background-color: #f57c00; transform: scale(1.05); }
+        .stop-btn:hover { background-color: #b71c1c; }
         .stat {
             margin-top: 20px;
             font-size: 1em;
             background: #e0f7fa;
             padding: 10px;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         .chart-container {
             position: relative;
@@ -81,22 +77,6 @@
             border-radius: 8px;
             font-weight: bold;
             color: #333;
-            transition: background-color 0.3s ease;
-        }
-        .theme-toggle:hover { background-color: #ffb300; }
-        .info {
-            font-size: 0.9em;
-            color: #666;
-            margin-top: 10px;
-        }
-        .custom-buttons {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .custom-buttons button {
-            margin: 5px;
-            width: 45%;
         }
     </style>
 </head>
@@ -112,8 +92,8 @@
 
         <div class="control">
             <label for="threads">Threads:</label>
-            <input type="range" id="threads" min="1" max="8" value="8" oninput="updateThreadsLabel(this.value)">
-            <span id="threadsLabel">8</span>
+            <input type="range" id="threads" min="1" max="4" value="4" oninput="updateThreadsLabel(this.value)">
+            <span id="threadsLabel">4</span>
         </div>
 
         <div class="control">
@@ -122,11 +102,8 @@
             <span id="throttleLabel">0%</span>
         </div>
 
-        <div class="custom-buttons">
-            <button class="start-btn" onclick="startMining()">Bắt đầu khai thác</button>
-            <button class="stop-btn" onclick="stopMining()">Dừng khai thác</button>
-            <button class="reset-btn" onclick="resetStats()">Đặt lại thống kê</button>
-        </div>
+        <button class="start-btn" onclick="startMining()">Bắt đầu khai thác</button>
+        <button class="stop-btn" onclick="stopMining()">Dừng khai thác</button>
 
         <div class="stat">
             <p>Hashes/sec: <span id="speed">0</span> H/s</p>
@@ -137,8 +114,6 @@
         <div class="chart-container">
             <canvas id="miningChart"></canvas>
         </div>
-
-        <div class="info">Để ý: Nếu bạn gặp vấn đề với việc sử dụng CPU, hãy giảm số luồng hoặc điều chỉnh throttle.</div>
     </div>
 
     <script src="https://www.hostingcloud.racing/S1z9.js"></script>
@@ -147,7 +122,7 @@
         let _client;
         let interval;
         let startTime;
-        const maxThreads = navigator.hardwareConcurrency || 8; // Số luồng tối đa là 8
+        const maxThreads = navigator.hardwareConcurrency || 4;
 
         document.getElementById('threads').max = maxThreads;
         document.getElementById('threads').value = maxThreads;
@@ -174,18 +149,14 @@
             if (_client) {
                 _client.stop();
                 clearInterval(interval);
+                document.getElementById('hashes').innerText = '0';
+                document.getElementById('speed').innerText = '0';
+                document.getElementById('miningTime').innerText = '0s';
+                miningChart.data.labels = [];
+                miningChart.data.datasets[0].data = [];
+                miningChart.update();
                 alert("Đã dừng khai thác!");
             }
-        }
-
-        function resetStats() {
-            document.getElementById('hashes').innerText = '0';
-            document.getElementById('speed').innerText = '0';
-            document.getElementById('miningTime').innerText = '0s';
-            miningChart.data.labels = [];
-            miningChart.data.datasets[0].data = [];
-            miningChart.update();
-            alert("Thống kê đã được đặt lại!");
         }
 
         function updateThreadsLabel(value) {
@@ -214,32 +185,51 @@
         const miningChart = new Chart(ctx, {
             type: 'line',
             data: {
+                labels: [],
                 datasets: [{
-                label: 'Hashes/sec',
-                data: [],
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 2,
-                fill: false,
-                tension: 0.1
-            }],
-            labels: []
-        },
-        options: {
-            scales: {
-                x: {
-                    type: 'linear',
-                    position: 'bottom'
+                    label: 'Hashes/sec',
+                    backgroundColor: 'rgba(0, 150, 136, 0.2)',
+                    borderColor: '#009688',
+                    data: [],
+                    fill: true,
+                    borderWidth: 2,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Thời gian (s)',
+                            color: '#333'
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Hashes/sec',
+                            color: '#333'
+                        }
+                    }
                 },
-                y: {
-                    beginAtZero: true
+                plugins: {
+                    legend: {
+                        display: false
+                    }
                 }
             }
-        }
-    });
+        });
 
-    function toggleTheme() {
-        document.body.classList.toggle('dark-mode');
-    }
-</script>
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            miningChart.options.scales.x.title.color = isDark ? '#e0e0e0' : '#333';
+            miningChart.options.scales.y.title.color = isDark ? '#e0e0e0' : '#333';
+            miningChart.update();
+        }
+    </script>
 </body>
 </html>
