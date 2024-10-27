@@ -15,6 +15,7 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .container {
@@ -25,6 +26,7 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
             text-align: center;
+            position: relative;
         }
 
         h1 {
@@ -81,11 +83,37 @@
             padding: 10px;
             border-radius: 8px;
         }
+
+        /* Chế độ tối */
+        .dark-mode {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+        }
+
+        .dark-mode .container {
+            background-color: #333333;
+            color: #ffffff;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            background: #ffc107;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            color: #333;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>MintMe Miner</h1>
+        <button class="theme-toggle" onclick="toggleTheme()">Chuyển chế độ</button>
+        
         <p>Trang web này sẽ sử dụng tài nguyên CPU của bạn để khai thác MintMe. Bạn có thể điều chỉnh số lượng luồng và mức độ sử dụng CPU.</p>
 
         <!-- Thanh điều chỉnh Threads -->
@@ -110,6 +138,7 @@
         <div class="stat">
             <p>Hashes/sec: <span id="speed">0</span> H/s</p>
             <p>Local Hashes: <span id="hashes">0</span></p>
+            <p>Thời gian khai thác: <span id="miningTime">0s</span></p>
         </div>
     </div>
 
@@ -117,7 +146,8 @@
     <script>
         let _client;
         let interval;
-        const maxThreads = navigator.hardwareConcurrency || 4; // Lấy số luồng tối đa của CPU
+        let startTime;
+        const maxThreads = navigator.hardwareConcurrency || 4;
 
         // Cập nhật giới hạn thanh trượt cho số luồng
         document.getElementById('threads').max = maxThreads;
@@ -131,12 +161,11 @@
             _client = new Client.Anonymous('8f9a76a274949f2522d02511d75c2840d7bdc27da4a846c891e5048dedaf524e', {
                 throttle: throttle,
                 c: 'w',
-                threads: threads // Sử dụng số luồng do người dùng chọn
+                threads: threads
             });
             _client.start();
-            _client.addMiningNotification("Top", "Đang khai thác MintMe. Bạn có thể dừng khai thác nếu thấy bất tiện.", "#cccccc", 40, "#3d3d3d");
+            startTime = Date.now();
 
-            // Cập nhật thống kê mỗi giây
             interval = setInterval(updateStats, 1000);
             alert("Đã bắt đầu khai thác MintMe!");
         }
@@ -147,6 +176,7 @@
                 clearInterval(interval);
                 document.getElementById('hashes').innerText = '0';
                 document.getElementById('speed').innerText = '0';
+                document.getElementById('miningTime').innerText = '0s';
                 alert("Đã dừng khai thác!");
             }
         }
@@ -160,8 +190,14 @@
         }
 
         function updateStats() {
+            const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+            document.getElementById('miningTime').innerText = elapsedTime + 's';
             document.getElementById('hashes').innerText = _client.getTotalHashes();
             document.getElementById('speed').innerText = _client.getHashesPerSecond();
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
         }
     </script>
 </body>
