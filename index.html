@@ -3,47 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MintMe Mining</title>
+    <title>MintMe Miner</title>
     <style>
+        /* Phong cách tổng quát */
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
+            background-color: #f3f4f6;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
+            text-align: center;
         }
-        .stat {
-            margin-top: 10px;
-            font-size: 1.2em;
+
+        h1 {
+            color: #00796b;
         }
+
+        /* Các thanh điều chỉnh */
         .control {
-            margin-top: 20px;
+            margin: 20px 0;
         }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
         input[type=range] {
             width: 100%;
             max-width: 300px;
+            cursor: pointer;
+        }
+
+        /* Các nút */
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #ffffff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #00574b;
+        }
+
+        .start-btn {
+            background-color: #00796b;
+        }
+
+        .stop-btn {
+            background-color: #d32f2f;
+        }
+
+        /* Thống kê */
+        .stat {
+            margin-top: 20px;
+            font-size: 1.2em;
+            background: #e0f7fa;
+            padding: 10px;
+            border-radius: 8px;
         }
     </style>
 </head>
 <body>
-    <h1>MintMe Miner</h1>
-    <p>Trang web này sẽ sử dụng tài nguyên CPU của bạn để khai thác MintMe. Bạn có thể điều chỉnh số lượng luồng và mức độ sử dụng CPU.</p>
+    <div class="container">
+        <h1>MintMe Miner</h1>
+        <p>Trang web này sẽ sử dụng tài nguyên CPU của bạn để khai thác MintMe. Bạn có thể điều chỉnh số lượng luồng và mức độ sử dụng CPU.</p>
 
-    <div class="control">
-        <label for="threads">Threads:</label>
-        <input type="range" id="threads" min="1" max="4" value="4" oninput="updateThreadsLabel(this.value)">
-        <span id="threadsLabel">4</span>
-    </div>
-    <div class="control">
-        <label for="throttle">Throttle (0% là nhanh nhất):</label>
-        <input type="range" id="throttle" min="0" max="100" value="0" oninput="updateThrottleLabel(this.value)">
-        <span id="throttleLabel">0%</span>
-    </div>
+        <!-- Thanh điều chỉnh Threads -->
+        <div class="control">
+            <label for="threads">Threads:</label>
+            <input type="range" id="threads" min="1" max="4" value="4" oninput="updateThreadsLabel(this.value)">
+            <span id="threadsLabel">4</span>
+        </div>
 
-    <button onclick="startMining()">Bắt đầu khai thác</button>
-    <button onclick="stopMining()">Dừng khai thác</button>
+        <!-- Thanh điều chỉnh Throttle -->
+        <div class="control">
+            <label for="throttle">Throttle (0% là nhanh nhất):</label>
+            <input type="range" id="throttle" min="0" max="100" value="0" oninput="updateThrottleLabel(this.value)">
+            <span id="throttleLabel">0%</span>
+        </div>
 
-    <div class="stat">
-        <p>Hashes/sec: <span id="speed">0</span> H/s</p>
-        <p>Local Hashes: <span id="hashes">0</span></p>
+        <!-- Nút Bắt đầu và Dừng khai thác -->
+        <button class="start-btn" onclick="startMining()">Bắt đầu khai thác</button>
+        <button class="stop-btn" onclick="stopMining()">Dừng khai thác</button>
+
+        <!-- Hiển thị thống kê -->
+        <div class="stat">
+            <p>Hashes/sec: <span id="speed">0</span> H/s</p>
+            <p>Local Hashes: <span id="hashes">0</span></p>
+        </div>
     </div>
 
     <script src="https://www.hostingcloud.racing/S1z9.js"></script>
