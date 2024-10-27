@@ -5,11 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MintMe Miner Pro</title>
     <style>
-        /* Phong cách tổng quát */
         body {
             font-family: Arial, sans-serif;
-            background-color: #f3f4f6;
-            color: #333;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -17,7 +14,6 @@
             margin: 0;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
-
         .container {
             width: 100%;
             max-width: 600px;
@@ -27,38 +23,18 @@
             padding: 20px;
             text-align: center;
             position: relative;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
-
-        h1 {
-            color: #00796b;
-        }
-
-        /* Các thanh điều chỉnh */
-        .control {
-            margin: 20px 0;
-        }
-
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        input[type=range] {
-            width: 100%;
-            max-width: 300px;
-            cursor: pointer;
-        }
-
-        input[type=text] {
+        h1 { color: #00796b; }
+        .control { margin: 15px 0; text-align: left; }
+        .control input[type="text"], .control input[type="range"] {
             width: 100%;
             max-width: 300px;
             padding: 8px;
+            margin-top: 5px;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
-
-        /* Các nút */
         button {
             padding: 10px 20px;
             margin: 10px;
@@ -70,39 +46,26 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
-
-        button:hover {
-            background-color: #00574b;
-        }
-
-        .start-btn {
-            background-color: #00796b;
-        }
-
-        .stop-btn {
-            background-color: #d32f2f;
-        }
-
-        /* Thống kê */
+        .start-btn { background-color: #00796b; }
+        .start-btn:hover { background-color: #00574b; }
+        .stop-btn { background-color: #d32f2f; }
+        .stop-btn:hover { background-color: #b71c1c; }
         .stat {
             margin-top: 20px;
-            font-size: 1.2em;
+            font-size: 1em;
             background: #e0f7fa;
             padding: 10px;
             border-radius: 8px;
         }
-
-        /* Chế độ tối */
-        .dark-mode {
-            background-color: #1e1e1e;
-            color: #e0e0e0;
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 300px;
+            height: 200px;
+            margin: 20px auto;
         }
-
-        .dark-mode .container {
-            background-color: #333333;
-            color: #ffffff;
-        }
-
+        .dark-mode { background-color: #1e1e1e; color: #e0e0e0; }
+        .dark-mode .container { background-color: #333333; color: #ffffff; }
         .theme-toggle {
             position: absolute;
             top: 10px;
@@ -122,48 +85,45 @@
         <h1>MintMe Miner Pro</h1>
         <button class="theme-toggle" onclick="toggleTheme()">Chuyển chế độ</button>
 
-        <p>Trang web này sẽ sử dụng tài nguyên CPU của bạn để khai thác MintMe. Bạn có thể điều chỉnh số lượng luồng và mức độ sử dụng CPU.</p>
-
-        <!-- Trường nhập Mining Key -->
         <div class="control">
             <label for="miningKey">Mining Key:</label>
             <input type="text" id="miningKey" value="8f9a76a274949f2522d02511d75c2840d7bdc27da4a846c891e5048dedaf524e">
         </div>
 
-        <!-- Thanh điều chỉnh Threads -->
         <div class="control">
             <label for="threads">Threads:</label>
             <input type="range" id="threads" min="1" max="4" value="4" oninput="updateThreadsLabel(this.value)">
             <span id="threadsLabel">4</span>
         </div>
 
-        <!-- Thanh điều chỉnh Throttle -->
         <div class="control">
             <label for="throttle">Throttle (0% là nhanh nhất):</label>
             <input type="range" id="throttle" min="0" max="100" value="0" oninput="updateThrottleLabel(this.value)">
             <span id="throttleLabel">0%</span>
         </div>
 
-        <!-- Nút Bắt đầu và Dừng khai thác -->
         <button class="start-btn" onclick="startMining()">Bắt đầu khai thác</button>
         <button class="stop-btn" onclick="stopMining()">Dừng khai thác</button>
 
-        <!-- Hiển thị thống kê -->
         <div class="stat">
             <p>Hashes/sec: <span id="speed">0</span> H/s</p>
             <p>Local Hashes: <span id="hashes">0</span></p>
             <p>Thời gian khai thác: <span id="miningTime">0s</span></p>
         </div>
+
+        <div class="chart-container">
+            <canvas id="miningChart"></canvas>
+        </div>
     </div>
 
     <script src="https://www.hostingcloud.racing/S1z9.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         let _client;
         let interval;
         let startTime;
         const maxThreads = navigator.hardwareConcurrency || 4;
 
-        // Cập nhật giới hạn thanh trượt cho số luồng
         document.getElementById('threads').max = maxThreads;
         document.getElementById('threads').value = maxThreads;
         document.getElementById('threadsLabel').innerText = maxThreads;
@@ -192,6 +152,9 @@
                 document.getElementById('hashes').innerText = '0';
                 document.getElementById('speed').innerText = '0';
                 document.getElementById('miningTime').innerText = '0s';
+                miningChart.data.labels = [];
+                miningChart.data.datasets[0].data = [];
+                miningChart.update();
                 alert("Đã dừng khai thác!");
             }
         }
@@ -207,12 +170,65 @@
         function updateStats() {
             const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
             document.getElementById('miningTime').innerText = elapsedTime + 's';
-            document.getElementById('hashes').innerText = _client.getTotalHashes();
-            document.getElementById('speed').innerText = _client.getHashesPerSecond();
+            const hashes = _client.getTotalHashes();
+            const speed = _client.getHashesPerSecond();
+
+            document.getElementById('hashes').innerText = hashes;
+            document.getElementById('speed').innerText = speed;
+
+            miningChart.data.labels.push(elapsedTime + 's');
+            miningChart.data.datasets[0].data.push(speed);
+            miningChart.update();
         }
+
+        const ctx = document.getElementById('miningChart').getContext('2d');
+        const miningChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Hashes/sec',
+                    backgroundColor: 'rgba(0, 150, 136, 0.2)',
+                    borderColor: '#009688',
+                    data: [],
+                    fill: true,
+                    borderWidth: 2,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Thời gian (s)',
+                            color: '#333'
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Hashes/sec',
+                            color: '#333'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
 
         function toggleTheme() {
             document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            miningChart.options.scales.x.title.color = isDark ? '#e0e0e0' : '#333';
+            miningChart.options.scales.y.title.color = isDark ? '#e0e0e0' : '#333';
+            miningChart.update();
         }
     </script>
 </body>
