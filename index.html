@@ -3,7 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Galaxy Bypass Yeumoney</title>
+  <title>©Design By Nam</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
   <style>
     :root {
       --main-color: #00ffe7;
@@ -13,154 +19,305 @@
 
     body {
       background: radial-gradient(ellipse at center, var(--bg-color) 0%, #000 100%);
-      color: var(--main-color);
+      color: var(--text-color);
       font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 2rem 1rem;
       min-height: 100vh;
-      text-align: center;
+      padding: 2rem 1rem;
     }
 
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
+    .main-container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .title {
+      font-size: 2.4rem;
+      margin-bottom: 1.5rem;
       text-shadow: 0 0 10px var(--main-color), 0 0 20px var(--main-color);
+      animation: glow 2s ease-in-out infinite alternate;
     }
 
-    select, button {
-      padding: 0.8rem 1.2rem;
-      font-size: 1rem;
-      margin: 0.5rem;
-      background: var(--main-color);
-      border: none;
-      border-radius: 8px;
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 5px var(--main-color), 0 0 10px var(--main-color);
+      }
+      to {
+        text-shadow: 0 0 10px var(--main-color), 0 0 20px var(--main-color), 0 0 30px var(--main-color);
+      }
+    }
+
+    .btn-primary {
+      background-color: var(--main-color);
+      border-color: var(--main-color);
       color: #000;
-      cursor: pointer;
-      transition: 0.2s;
-      max-width: 100%;
-      width: 300px;
+      font-weight: 600;
+      transition: all 0.3s;
     }
 
-    button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
+    .btn-primary:hover {
+      background-color: transparent;
+      color: var(--main-color);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 255, 231, 0.3);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.6;
+    }
+
+    .form-select {
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--main-color);
+      color: var(--text-color);
+      margin-bottom: 1rem;
+    }
+
+    .form-select:focus {
+      background-color: rgba(255, 255, 255, 0.2);
+      color: var(--text-color);
+      border-color: var(--main-color);
+      box-shadow: 0 0 0 0.25rem rgba(0, 255, 231, 0.25);
+    }
+
+    .code-box {
+      background: rgba(0, 255, 231, 0.1);
+      border: 1px solid var(--main-color);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+      display: none;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .progress {
+      height: 10px;
+      background-color: rgba(255, 255, 255, 0.1);
+      margin: 1rem 0;
+    }
+
+    .progress-bar {
+      background-color: var(--main-color);
+      transition: width 0.3s ease;
     }
 
     .timer {
       font-size: 1.2rem;
-      margin-top: 1rem;
+      margin: 1rem 0;
     }
 
-    .progress-bar {
-      margin-top: 0.5rem;
-      width: 100%;
-      max-width: 320px;
-      height: 10px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 5px;
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      height: 100%;
-      width: 0%;
-      background: var(--main-color);
-      transition: width 0.2s linear;
-    }
-
-    .code-box {
-      margin-top: 2rem;
-      padding: 1rem;
-      background: rgba(0,255,231,0.1);
-      border: 1px solid var(--main-color);
-      border-radius: 8px;
+    .mission-info {
+      background: rgba(0, 255, 231, 0.05);
+      border-left: 3px solid var(--main-color);
+      padding: 0.5rem 1rem;
+      margin: 1rem 0;
       display: none;
-      width: 90%;
-      max-width: 360px;
     }
 
-    .copy-btn {
-      margin-top: 0.8rem;
+    .speed-control {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 1rem 0;
+    }
+
+    .speed-btn {
+      background: rgba(0, 255, 231, 0.2);
+      border: 1px solid var(--main-color);
+      color: var(--main-color);
+      border-radius: 20px;
+      padding: 0.25rem 0.75rem;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .speed-btn:hover, .speed-btn.active {
       background: var(--main-color);
       color: #000;
     }
 
-    @media (min-width: 600px) {
-      h1 {
-        font-size: 2.4rem;
+    .history-item {
+      background: rgba(0, 255, 231, 0.05);
+      border-radius: 5px;
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 576px) {
+      .title {
+        font-size: 1.8rem;
       }
     }
   </style>
 </head>
 <body>
-  <h1>🚀 Get Mã Yeumoney</h1>
-  <select id="missionSelect">
-    <option value="">-- Chọn từ khóa nhiệm vụ --</option>
-    <option value="36">Nhiệm vụ vn88</option>
-    <option value="66">Nhiệm vụ w88 w88xlm</option>
-    <option value="67">Nhiệm vụ fun88</option>
-    <option value="23">Nhiệm vụ v9bet</option>
-    <option value="30">Nhiệm vụ w88</option>
-    <option value="37">Nhiệm vụ fb88</option>
-    <option value="41">Nhiệm vụ bk8</option>
-    <option value="44">Nhiệm vụ m88</option>
-    <option value="42">Nhiệm vụ 188bet</option>
-  </select>
-  <button id="startBtn" onclick="startMission()">Bắt đầu get mã</button>
-
-  <div class="timer" id="countdown"></div>
-  <div class="progress-bar"><div class="progress-fill" id="progressBar"></div></div>
-
-  <div class="code-box" id="codeBox">
-    <div><strong>Mã xác nhận:</strong> <span id="codeValue">...</span></div>
-    <button class="copy-btn" onclick="copyCode()">Copy</button>
+  <div class="main-container text-center">
+    <h1 class="title animate__animated animate__fadeIn"><i class="fas fa-rocket me-2"></i>Get Mã Yeumoney</h1>
+    
+    <div class="mb-4">
+      <select class="form-select" id="missionSelect">
+        <option value="">-- Chọn từ khóa nhiệm vụ --</option>
+        <option value="36">Nhiệm vụ vn88</option>
+        <option value="66">Nhiệm vụ w88 w88xlm</option>
+        <option value="67">Nhiệm vụ fun88</option>
+        <option value="23">Nhiệm vụ v9bet</option>
+        <option value="30">Nhiệm vụ w88</option>
+        <option value="37">Nhiệm vụ fb88</option>
+        <option value="41">Nhiệm vụ bk8</option>
+        <option value="44">Nhiệm vụ m88</option>
+        <option value="42">Nhiệm vụ 188bet</option>
+      </select>
+      
+      <div class="mission-info" id="missionInfo">
+        <small><i class="fas fa-info-circle me-1"></i> <span id="missionUrl"></span></small>
+      </div>
+      
+      <button class="btn btn-primary btn-lg w-100" id="startBtn">
+        <i class="fas fa-play me-2"></i>Bắt đầu get mã
+      </button>
+    </div>
+    
+    <div class="speed-control" id="speedControl" style="display: none;">
+      <div class="speed-btn" data-speed="1">1x</div>
+      <div class="speed-btn active" data-speed="2">2x</div>
+      <div class="speed-btn" data-speed="4">4x</div>
+      <div class="speed-btn" data-speed="8">8x</div>
+    </div>
+    
+    <div class="timer" id="countdown"></div>
+    <div class="progress">
+      <div class="progress-bar" id="progressBar" role="progressbar" style="width: 0%"></div>
+    </div>
+    
+    <div class="code-box" id="codeBox">
+      <div class="mb-3">
+        <strong>Mã xác nhận:</strong> 
+        <span class="fs-4 fw-bold" id="codeValue">...</span>
+      </div>
+      <button class="btn btn-primary" id="copyBtn">
+        <i class="fas fa-copy me-2"></i>Copy
+      </button>
+      <button class="btn btn-outline-light ms-2" id="saveBtn">
+        <i class="fas fa-save me-2"></i>Lưu
+      </button>
+    </div>
+    
+    <div class="mt-4 text-start" id="historySection" style="display: none;">
+      <h5><i class="fas fa-history me-2"></i>Lịch sử mã</h5>
+      <div id="historyList"></div>
+    </div>
   </div>
 
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
   <script>
     const missions = {
       "36": {
+        name: "Nhiệm vụ vn88",
         urlChinh: "https://vn88ie.com/",
         urlBaiViet: "https://vn88ie.com/cach-choi-power-6-55/"
       },
       "66": {
+        name: "Nhiệm vụ w88 w88xlm",
         urlChinh: "https://w88xlm.com/",
         urlBaiViet: "https://w88xlm.com/cach-choi-bai-solitaire/"
       },
       "67": {
+        name: "Nhiệm vụ fun88",
         urlChinh: "https://fun88op.com/",
         urlBaiViet: "https://fun88op.com/thuat-ngu-ca-do-bong-da-truc-tuyen/"
       },
       "23": {
+        name: "Nhiệm vụ v9bet",
         urlChinh: "https://v9betlg.com/",
         urlBaiViet: "https://v9betlg.com/cach-choi-ca-cuoc-dua-mo-to-gia-lap/"
       },
       "30": {
+        name: "Nhiệm vụ w88",
         urlChinh: "https://188.166.185.213/",
         urlBaiViet: "https://188.166.185.213/bai-rac-trong-poker/"
       },
       "37": {
+        name: "Nhiệm vụ fb88",
         urlChinh: "https://fb88mg.com/",
         urlBaiViet: "https://fb88mg.com/cach-choi-ca-cuoc-dien-kinh/"
       },
       "41": {
+        name: "Nhiệm vụ bk8",
         urlChinh: "https://bk8xo.com/",
         urlBaiViet: "https://bk8xo.com/cach-choi-domino-qq/"
       },
       "44": {
+        name: "Nhiệm vụ m88",
         urlChinh: "https://bet88ec.com/",
         urlBaiViet: "https://bet88ec.com/kinh-nghiem-lo-de/"
       },
       "42": {
+        name: "Nhiệm vụ 188bet",
         urlChinh: "https://88betag.com/",
         urlBaiViet: "https://88betag.com/keo-chau-a-la-gi/"
       }
     };
 
     let currentCode = null;
-    const clk = generateRandom("0123456789", 10);
+    let currentMission = null;
+    let clk = generateRandom("0123456789", 10);
+    let speedMultiplier = 2; // Default speed (2x faster)
+    let history = JSON.parse(localStorage.getItem('codeHistory')) || [];
+
+    // DOM elements
     const btn = document.getElementById("startBtn");
+    const missionSelect = document.getElementById("missionSelect");
+    const missionInfo = document.getElementById("missionInfo");
+    const missionUrl = document.getElementById("missionUrl");
+    const countdown = document.getElementById("countdown");
+    const progressBar = document.getElementById("progressBar");
+    const codeBox = document.getElementById("codeBox");
+    const codeValue = document.getElementById("codeValue");
+    const copyBtn = document.getElementById("copyBtn");
+    const saveBtn = document.getElementById("saveBtn");
+    const speedControl = document.getElementById("speedControl");
+    const speedBtns = document.querySelectorAll(".speed-btn");
+    const historySection = document.getElementById("historySection");
+    const historyList = document.getElementById("historyList");
+
+    // Initialize
+    updateHistoryDisplay();
+    if (history.length > 0) {
+      historySection.style.display = 'block';
+    }
+
+    // Event listeners
+    missionSelect.addEventListener('change', function() {
+      const id = this.value;
+      if (missions[id]) {
+        missionInfo.style.display = 'block';
+        missionUrl.textContent = missions[id].urlChinh;
+        currentMission = missions[id];
+      } else {
+        missionInfo.style.display = 'none';
+        currentMission = null;
+      }
+    });
+
+    btn.addEventListener('click', startMission);
+    copyBtn.addEventListener('click', copyCode);
+    saveBtn.addEventListener('click', saveCode);
+
+    speedBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        speedBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        speedMultiplier = parseInt(this.dataset.speed);
+      });
+    });
 
     function generateRandom(charset, length) {
       let result = '';
@@ -171,62 +328,81 @@
     }
 
     async function startMission() {
-      const id = document.getElementById("missionSelect").value;
+      const id = missionSelect.value;
       if (!missions[id]) {
-        alert("Vui lòng chọn nhiệm vụ hợp lệ.");
+        showAlert('Vui lòng chọn nhiệm vụ hợp lệ.', 'warning');
         return;
       }
-      const cfg = missions[id];
-      const countdown = document.getElementById("countdown");
-      const progress = document.getElementById("progressBar");
-      const codeBox = document.getElementById("codeBox");
 
+      const cfg = missions[id];
+      currentMission = cfg;
+      
+      // Reset UI
       btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Đang xử lý...';
       countdown.textContent = "";
       codeBox.style.display = "none";
-      document.getElementById("codeValue").textContent = "...";
-      progress.style.width = "0%";
+      codeValue.textContent = "...";
+      progressBar.style.width = "0%";
       currentCode = null;
+      speedControl.style.display = 'flex';
 
       try {
-        await guiRequestLan1(cfg);
-        await delay(1000);
-        await guiRequestLan2(cfg);
-        await delay(1000);
-      } catch (e) {
-        alert("❌ Lỗi.");
-        btn.disabled = false;
-        return;
-      }
+        // Show loading animation
+        countdown.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Đang khởi tạo...';
+        
+        // Send requests with progress feedback
+        await Promise.all([
+          guiRequestLan1(cfg),
+          delay(500).then(() => guiRequestLan2(cfg))
+        ]);
+        
+        // Start countdown with the selected speed
+        const totalTime = 75000 / speedMultiplier;
+        const startTime = Date.now();
+        
+        const interval = setInterval(async () => {
+          const elapsed = Date.now() - startTime;
+          const remaining = Math.max(0, Math.ceil((totalTime - elapsed) / 1000));
+          const percent = Math.min(100, (elapsed / totalTime) * 100);
 
-      const startTime = Date.now();
-      const totalTime = 75000;
+          countdown.innerHTML = `<i class="fas fa-clock me-2"></i>Vui lòng đợi ${remaining} giây...`;
+          progressBar.style.width = percent + "%";
 
-      const interval = setInterval(async () => {
-        const elapsed = Date.now() - startTime;
-        const remaining = Math.max(0, Math.ceil((totalTime - elapsed) / 1000));
-        const percent = Math.min(100, (elapsed / totalTime) * 100);
-
-        countdown.textContent = `⏳ Vui lòng đợi ${remaining} giây...`;
-        progress.style.width = percent + "%";
-
-        if (elapsed >= totalTime) {
-          clearInterval(interval);
-          countdown.textContent = "✅ Thành công!";
-          try {
-            currentCode = await layMa(cfg);
-            document.getElementById("codeValue").textContent = currentCode || "Không lấy được mã";
-            codeBox.style.display = "block";
-          } catch (e) {
-            alert("❌ Lỗi khi lấy mã.");
+          if (elapsed >= totalTime) {
+            clearInterval(interval);
+            countdown.innerHTML = '<i class="fas fa-check-circle me-2"></i>Thành công!';
+            
+            try {
+              currentCode = await layMa(cfg);
+              codeValue.textContent = currentCode || "Không lấy được mã";
+              codeBox.style.display = "block";
+              codeBox.classList.add('animate__animated', 'animate__fadeIn');
+              
+              // Add to history
+              addToHistory(currentCode, cfg.name);
+            } catch (e) {
+              showAlert('Lỗi khi lấy mã.', 'danger');
+            }
+            
+            resetButton();
+            speedControl.style.display = 'none';
           }
-          btn.disabled = false;
-        }
-      }, 500);
+        }, 200);
+      } catch (e) {
+        showAlert('Lỗi trong quá trình xử lý.', 'danger');
+        resetButton();
+        speedControl.style.display = 'none';
+      }
+    }
+
+    function resetButton() {
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-play me-2"></i>Bắt đầu get mã';
     }
 
     function delay(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms));
+      return new Promise(resolve => setTimeout(resolve, ms / speedMultiplier));
     }
 
     async function guiRequestLan1(cfg) {
@@ -261,8 +437,58 @@
     function copyCode() {
       if (!currentCode) return;
       navigator.clipboard.writeText(currentCode).then(() => {
-        alert("✅ Đã copy mã!");
+        showAlert('Đã copy mã vào clipboard!', 'success');
       });
+    }
+
+    function saveCode() {
+      if (!currentCode || !currentMission) return;
+      addToHistory(currentCode, currentMission.name);
+      showAlert('Đã lưu mã vào lịch sử!', 'success');
+    }
+
+    function addToHistory(code, missionName) {
+      const timestamp = new Date().toLocaleString();
+      history.unshift({ code, missionName, timestamp });
+      
+      // Keep only last 10 items
+      if (history.length > 10) {
+        history = history.slice(0, 10);
+      }
+      
+      localStorage.setItem('codeHistory', JSON.stringify(history));
+      updateHistoryDisplay();
+      historySection.style.display = 'block';
+    }
+
+    function updateHistoryDisplay() {
+      historyList.innerHTML = '';
+      history.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'history-item';
+        div.innerHTML = `
+          <div><strong>${item.missionName}</strong></div>
+          <div>Mã: <code>${item.code}</code></div>
+          <small class="text-muted">${item.timestamp}</small>
+        `;
+        historyList.appendChild(div);
+      });
+    }
+
+    function showAlert(message, type) {
+      const alert = document.createElement('div');
+      alert.className = `alert alert-${type} position-fixed top-0 start-50 translate-middle-x mt-3 animate__animated animate__fadeInDown`;
+      alert.style.zIndex = '9999';
+      alert.innerHTML = `
+        <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'warning' ? 'fa-exclamation-triangle' : 'fa-times-circle'} me-2"></i>
+        ${message}
+      `;
+      document.body.appendChild(alert);
+      
+      setTimeout(() => {
+        alert.classList.add('animate__fadeOutUp');
+        setTimeout(() => alert.remove(), 500);
+      }, 3000);
     }
   </script>
 </body>
