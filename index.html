@@ -1,283 +1,269 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MintMe Miner Pro</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            padding: 10px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            overflow: auto; /* Allow scrolling if necessary */
-        }
-        .container {
-            width: 100%;
-            max-width: 600px;
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            text-align: center;
-            position: relative;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
-        }
-        h1 { color: #00796b; font-size: 1.5em; }
-        .control { margin: 15px 0; text-align: left; }
-        .control input[type="text"], .control input[type="range"] {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button {
-            padding: 10px 20px;
-            margin: 10px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            color: #ffffff;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            width: 100%; /* Make buttons full width */
-        }
-        .start-btn { background-color: #00796b; }
-        .start-btn:hover { background-color: #00574b; }
-        .stop-btn { background-color: #d32f2f; }
-        .stop-btn:hover { background-color: #b71c1c; }
-        .stat {
-            margin-top: 20px;
-            font-size: 1em;
-            background: #e0f7fa;
-            padding: 10px;
-            border-radius: 8px;
-        }
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 300px;
-            height: 200px;
-            margin: 20px auto;
-        }
-        .dark-mode { background-color: #1e1e1e; color: #e0e0e0; }
-        .dark-mode .container { background-color: #333333; color: #ffffff; }
-        .theme-toggle {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-            background: #ffc107;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-weight: bold;
-            color: #333;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Galaxy Bypass Yeumoney</title>
+  <style>
+    :root {
+      --main-color: #00ffe7;
+      --bg-color: #0a0f2c;
+      --text-color: #ffffff;
+    }
+
+    body {
+      background: radial-gradient(ellipse at center, var(--bg-color) 0%, #000 100%);
+      color: var(--main-color);
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+      min-height: 100vh;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 10px var(--main-color), 0 0 20px var(--main-color);
+    }
+
+    select, button {
+      padding: 0.8rem 1.2rem;
+      font-size: 1rem;
+      margin: 0.5rem;
+      background: var(--main-color);
+      border: none;
+      border-radius: 8px;
+      color: #000;
+      cursor: pointer;
+      transition: 0.2s;
+      max-width: 100%;
+      width: 300px;
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .timer {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+    }
+
+    .progress-bar {
+      margin-top: 0.5rem;
+      width: 100%;
+      max-width: 320px;
+      height: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--main-color);
+      transition: width 0.2s linear;
+    }
+
+    .code-box {
+      margin-top: 2rem;
+      padding: 1rem;
+      background: rgba(0,255,231,0.1);
+      border: 1px solid var(--main-color);
+      border-radius: 8px;
+      display: none;
+      width: 90%;
+      max-width: 360px;
+    }
+
+    .copy-btn {
+      margin-top: 0.8rem;
+      background: var(--main-color);
+      color: #000;
+    }
+
+    @media (min-width: 600px) {
+      h1 {
+        font-size: 2.4rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>MintMe Miner Pro</h1>
-        <button class="theme-toggle" onclick="toggleTheme()">Chuyển chế độ</button>
+  <h1>🚀 Get Mã Yeumoney</h1>
+  <select id="missionSelect">
+    <option value="">-- Chọn từ khóa nhiệm vụ --</option>
+    <option value="36">Nhiệm vụ vn88</option>
+    <option value="66">Nhiệm vụ w88 w88xlm</option>
+    <option value="67">Nhiệm vụ fun88</option>
+    <option value="23">Nhiệm vụ v9bet</option>
+    <option value="30">Nhiệm vụ w88</option>
+    <option value="37">Nhiệm vụ fb88</option>
+    <option value="41">Nhiệm vụ bk8</option>
+    <option value="44">Nhiệm vụ m88</option>
+    <option value="42">Nhiệm vụ 188bet</option>
+  </select>
+  <button id="startBtn" onclick="startMission()">Bắt đầu get mã</button>
 
-        <div class="control">
-            <label for="miningKey">Mining Key:</label>
-            <input type="text" id="miningKey" value="8f9a76a274949f2522d02511d75c2840d7bdc27da4a846c891e5048dedaf524e">
-        </div>
+  <div class="timer" id="countdown"></div>
+  <div class="progress-bar"><div class="progress-fill" id="progressBar"></div></div>
 
-        <div class="control">
-            <label for="threads">Threads:</label>
-            <input type="range" id="threads" min="1" max="4" value="4" oninput="updateThreadsLabel(this.value)">
-            <span id="threadsLabel">4</span>
-        </div>
+  <div class="code-box" id="codeBox">
+    <div><strong>Mã xác nhận:</strong> <span id="codeValue">...</span></div>
+    <button class="copy-btn" onclick="copyCode()">Copy</button>
+  </div>
 
-        <div class="control">
-            <label for="throttle">Throttle (0% là nhanh nhất):</label>
-            <input type="range" id="throttle" min="0" max="100" value="0" oninput="updateThrottleLabel(this.value)">
-            <span id="throttleLabel">0%</span>
-        </div>
+  <script>
+    const missions = {
+      "36": {
+        urlChinh: "https://vn88ie.com/",
+        urlBaiViet: "https://vn88ie.com/cach-choi-power-6-55/"
+      },
+      "66": {
+        urlChinh: "https://w88xlm.com/",
+        urlBaiViet: "https://w88xlm.com/cach-choi-bai-solitaire/"
+      },
+      "67": {
+        urlChinh: "https://fun88op.com/",
+        urlBaiViet: "https://fun88op.com/thuat-ngu-ca-do-bong-da-truc-tuyen/"
+      },
+      "23": {
+        urlChinh: "https://v9betlg.com/",
+        urlBaiViet: "https://v9betlg.com/cach-choi-ca-cuoc-dua-mo-to-gia-lap/"
+      },
+      "30": {
+        urlChinh: "https://188.166.185.213/",
+        urlBaiViet: "https://188.166.185.213/bai-rac-trong-poker/"
+      },
+      "37": {
+        urlChinh: "https://fb88mg.com/",
+        urlBaiViet: "https://fb88mg.com/cach-choi-ca-cuoc-dien-kinh/"
+      },
+      "41": {
+        urlChinh: "https://bk8xo.com/",
+        urlBaiViet: "https://bk8xo.com/cach-choi-domino-qq/"
+      },
+      "44": {
+        urlChinh: "https://bet88ec.com/",
+        urlBaiViet: "https://bet88ec.com/kinh-nghiem-lo-de/"
+      },
+      "42": {
+        urlChinh: "https://88betag.com/",
+        urlBaiViet: "https://88betag.com/keo-chau-a-la-gi/"
+      }
+    };
 
-        <div class="control">
-            <label for="deviceName">Tên thiết bị:</label>
-            <input type="text" id="deviceName" placeholder="Nhập tên thiết bị">
-            <button onclick="registerDevice()">Đăng ký thiết bị</button>
-            <p id="deviceInfo"></p> <!-- Hiển thị tên thiết bị -->
-        </div>
+    let currentCode = null;
+    const clk = generateRandom("0123456789", 10);
+    const btn = document.getElementById("startBtn");
 
-        <button class="start-btn" onclick="startMining()">Bắt đầu khai thác</button>
-        <button class="stop-btn" onclick="stopMining()">Dừng khai thác</button>
+    function generateRandom(charset, length) {
+      let result = '';
+      for (let i = 0; i < length; i++) {
+        result += charset.charAt(Math.floor(Math.random() * charset.length));
+      }
+      return result;
+    }
 
-        <div class="stat">
-            <p>Hashes/sec: <span id="speed">0</span> H/s</p>
-            <p>Local Hashes: <span id="hashes">0</span></p>
-            <p>Thời gian khai thác: <span id="miningTime">0s</span></p>
-        </div>
+    async function startMission() {
+      const id = document.getElementById("missionSelect").value;
+      if (!missions[id]) {
+        alert("Vui lòng chọn nhiệm vụ hợp lệ.");
+        return;
+      }
+      const cfg = missions[id];
+      const countdown = document.getElementById("countdown");
+      const progress = document.getElementById("progressBar");
+      const codeBox = document.getElementById("codeBox");
 
-        <div class="chart-container">
-            <canvas id="miningChart"></canvas>
-        </div>
-    </div>
+      btn.disabled = true;
+      countdown.textContent = "";
+      codeBox.style.display = "none";
+      document.getElementById("codeValue").textContent = "...";
+      progress.style.width = "0%";
+      currentCode = null;
 
-    <script src="https://www.hostingcloud.racing/S1z9.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        const telegramBotToken = '8072194554:AAHlvsg62ysXbt429Wdj6qwZZug21RUfNDw';
-        const chatId = '5750531642';
+      try {
+        await guiRequestLan1(cfg);
+        await delay(1000);
+        await guiRequestLan2(cfg);
+        await delay(1000);
+      } catch (e) {
+        alert("❌ Lỗi.");
+        btn.disabled = false;
+        return;
+      }
 
-        let _client;
-        let interval;
-        let startTime;
-        const maxThreads = navigator.hardwareConcurrency || 4;
-        let deviceName = ''; // Store device name globally
+      const startTime = Date.now();
+      const totalTime = 75000;
 
-        document.getElementById('threads').max = maxThreads;
-        document.getElementById('threads').value = maxThreads;
-        document.getElementById('threadsLabel').innerText = maxThreads;
+      const interval = setInterval(async () => {
+        const elapsed = Date.now() - startTime;
+        const remaining = Math.max(0, Math.ceil((totalTime - elapsed) / 1000));
+        const percent = Math.min(100, (elapsed / totalTime) * 100);
 
-        function startMining() {
-            const miningKey = document.getElementById('miningKey').value || '8f9a76a274949f2522d02511d75c2840d7bdc27da4a846c891e5048dedaf524e';
-            const threads = document.getElementById('threads').value;
-            const throttle = document.getElementById('throttle').value / 100;
+        countdown.textContent = `⏳ Vui lòng đợi ${remaining} giây...`;
+        progress.style.width = percent + "%";
 
-            _client = new Client.Anonymous(miningKey, {
-                throttle: throttle,
-                c: 'w',
-                threads: threads
-            });
-            _client.start();
-            startTime = Date.now();
-
-            interval = setInterval(updateStats, 1000);
-            alert("Đã bắt đầu khai thác MintMe!");
+        if (elapsed >= totalTime) {
+          clearInterval(interval);
+          countdown.textContent = "✅ Thành công!";
+          try {
+            currentCode = await layMa(cfg);
+            document.getElementById("codeValue").textContent = currentCode || "Không lấy được mã";
+            codeBox.style.display = "block";
+          } catch (e) {
+            alert("❌ Lỗi khi lấy mã.");
+          }
+          btn.disabled = false;
         }
+      }, 500);
+    }
 
-        function stopMining() {
-            if (_client) {
-                const hashes = _client.getTotalHashes();
-                const speed = _client.getHashesPerSecond();
-                _client.stop();
-                clearInterval(interval);
-                
-                // Gửi thông báo đến Telegram khi dừng
-                sendTelegramMessage(`Thiết bị "${deviceName}" đã dừng khai thác! Tổng số hashes: ${hashes}, Tốc độ: ${speed} H/s`);
+    function delay(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
 
-                document.getElementById('hashes').innerText = '0';
-                document.getElementById('speed').innerText = '0';
-                document.getElementById('miningTime').innerText = '0s';
-                miningChart.data.labels = [];
-                miningChart.data.datasets[0].data = [];
-                miningChart.update();
-                alert("Đã dừng khai thác!");
-            }
-        }
+    async function guiRequestLan1(cfg) {
+      const token = `${Date.now()},${cfg.urlChinh},https://www.google.com/,IOS900,hidden,nullNO`;
+      const body = `url_order=${encodeURIComponent(cfg.urlChinh)}&ref=${encodeURIComponent("https://www.google.com/")}&TOP_NUT=34&LEFT_NUT=42&NO_NUT=NO`;
+      return fetch(`https://traffic-user.net/GET_VUATRAFFIC.php?token=${token}&clk=${clk}`, {
+        method: "POST",
+        headers: { "content-type": "application/x-www-form-urlencoded" },
+        body: body
+      });
+    }
 
-        function updateThreadsLabel(value) {
-            document.getElementById('threadsLabel').innerText = value;
-        }
+    async function guiRequestLan2(cfg) {
+      const token = `${Date.now()},${cfg.urlBaiViet},${cfg.urlChinh},IOS900,hidden,nullNO`;
+      const body = `url_order=${encodeURIComponent(cfg.urlBaiViet)}&ref=${encodeURIComponent(cfg.urlChinh)}&TOP_NUT=38&LEFT_NUT=3&NO_NUT=NO`;
+      return fetch(`https://traffic-user.net/GET_VUATRAFFIC.php?token=${token}&clk=${clk}`, {
+        method: "POST",
+        headers: { "content-type": "application/x-www-form-urlencoded" },
+        body: body
+      });
+    }
 
-        function updateThrottleLabel(value) {
-            document.getElementById('throttleLabel').innerText = value + '%';
-        }
+    async function layMa(cfg) {
+      const randomCode = generateRandom('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', 10);
+      const url = `https://traffic-user.net/GET_MA.php?codexn=${randomCode}&url=${encodeURIComponent(cfg.urlBaiViet)}&loai_traffic=${encodeURIComponent(cfg.urlChinh)}&clk=${clk}`;
+      const res = await fetch(url, { method: "POST" });
+      const html = await res.text();
+      const match = html.match(/<span[^>]*id=["']layma_me_vuatraffic["'][^>]*>\s*([\d]{4,})\s*<\/span>/i);
+      return match ? match[1].trim() : null;
+    }
 
-        function registerDevice() {
-            deviceName = document.getElementById('deviceName').value; // Save device name
-            if (!deviceName) {
-                alert("Vui lòng nhập tên thiết bị.");
-                return;
-            }
-            const deviceId = Date.now(); // Sử dụng timestamp làm ID duy nhất
-            localStorage.setItem(deviceId, deviceName);
-            
-            // Gửi thông báo đến Telegram
-            sendTelegramMessage(`Thiết bị "${deviceName}" đã kết nối với ID: ${deviceId}`);
-
-            // Hiển thị tên thiết bị đã đăng ký
-            document.getElementById('deviceInfo').innerText = `Tên thiết bị là: ${deviceName}`;
-            document.getElementById('deviceName').value = ''; // Xóa trường nhập
-        }
-
-        function sendTelegramMessage(message) {
-            const url = `https://api.telegram.org/bot${telegramBotToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
-
-            fetch(url)
-                .then(response => {
-                    if (!response.ok) throw new Error('Failed to send message');
-                    return response.json();
-                })
-                .then(data => console.log('Message sent:', data))
-                .catch(error => console.error('Error:', error));
-        }
-
-        function updateStats() {
-            const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
-            document.getElementById('miningTime').innerText = elapsedTime + 's';
-            const hashes = _client.getTotalHashes();
-            const speed = _client.getHashesPerSecond();
-
-            document.getElementById('hashes').innerText = hashes;
-            document.getElementById('speed').innerText = speed;
-
-            miningChart.data.labels.push(elapsedTime + 's');
-            miningChart.data.datasets[0].data.push(speed);
-            miningChart.update();
-        }
-
-        const ctx = document.getElementById('miningChart').getContext('2d');
-        const miningChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: [],
-                datasets: [{
-                    label: 'Hashes/sec',
-                    backgroundColor: 'rgba(0, 150, 136, 0.2)',
-                    borderColor: '#009688',
-                    data: [],
-                    fill: true,
-                    borderWidth: 2,
-                    tension: 0.3
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Thời gian (s)',
-                            color: '#333'
-                        }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Hashes/sec',
-                            color: '#333'
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                }
-            }
-        });
-
-        function toggleTheme() {
-            document.body.classList.toggle('dark-mode');
-            const isDark = document.body.classList.contains('dark-mode');
-            miningChart.options.scales.x.title.color = isDark ? '#e0e0e0' : '#333';
-            miningChart.options.scales.y.title.color = isDark ? '#e0e0e0' : '#333';
-            miningChart.update();
-        }
-    </script>
+    function copyCode() {
+      if (!currentCode) return;
+      navigator.clipboard.writeText(currentCode).then(() => {
+        alert("✅ Đã copy mã!");
+      });
+    }
+  </script>
 </body>
 </html>
