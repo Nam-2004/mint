@@ -3,88 +3,169 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>©Design By Nam</title>
+  <title>Galaxy Bypass Premium</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Animate.css -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --main-color: #00ffe7;
-      --bg-color: #0a0f2c;
-      --text-color: #ffffff;
+      --primary-color: #00f7ff;
+      --secondary-color: #7b2cbf;
+      --dark-color: #0a0a1a;
+      --light-color: #e2f1f8;
+      --success-color: #00e676;
+      --danger-color: #ff3d00;
     }
 
     body {
-      background: radial-gradient(ellipse at center, var(--bg-color) 0%, #000 100%);
-      color: var(--text-color);
-      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+      color: var(--light-color);
+      font-family: 'Roboto', sans-serif;
       min-height: 100vh;
-      padding: 2rem 1rem;
+      overflow-x: hidden;
     }
 
-    .main-container {
-      max-width: 600px;
-      margin: 0 auto;
+    .glass-card {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
+      padding: 2rem;
+      transition: all 0.3s ease;
+    }
+
+    .glass-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px 0 rgba(0, 247, 255, 0.2);
     }
 
     .title {
-      font-size: 2.4rem;
-      margin-bottom: 1.5rem;
-      text-shadow: 0 0 10px var(--main-color), 0 0 20px var(--main-color);
-      animation: glow 2s ease-in-out infinite alternate;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 2.8rem;
+      background: linear-gradient(to right, var(--primary-color), #00b4d8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px rgba(0, 247, 255, 0.3);
+      margin-bottom: 2rem;
+      position: relative;
+      display: inline-block;
     }
 
-    @keyframes glow {
-      from {
-        text-shadow: 0 0 5px var(--main-color), 0 0 10px var(--main-color);
-      }
-      to {
-        text-shadow: 0 0 10px var(--main-color), 0 0 20px var(--main-color), 0 0 30px var(--main-color);
-      }
+    .title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(to right, var(--primary-color), transparent);
+      border-radius: 3px;
     }
 
-    .btn-primary {
-      background-color: var(--main-color);
-      border-color: var(--main-color);
-      color: #000;
+    .btn-neon {
+      background: transparent;
+      color: var(--primary-color);
+      border: 2px solid var(--primary-color);
+      border-radius: 50px;
+      padding: 0.8rem 2rem;
       font-weight: 600;
-      transition: all 0.3s;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
 
-    .btn-primary:hover {
-      background-color: transparent;
-      color: var(--main-color);
+    .btn-neon:hover {
+      color: var(--dark-color);
+      background: var(--primary-color);
+      box-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--primary-color), 0 0 40px var(--primary-color);
       transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0, 255, 231, 0.3);
     }
 
-    .btn-primary:disabled {
-      opacity: 0.6;
+    .btn-neon:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .btn-neon:disabled:hover {
+      color: var(--primary-color);
+      background: transparent;
+      transform: none;
     }
 
     .form-select {
-      background-color: rgba(255, 255, 255, 0.1);
-      border: 1px solid var(--main-color);
-      color: var(--text-color);
-      margin-bottom: 1rem;
+      background: rgba(0, 0, 0, 0.3);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      color: var(--light-color);
+      padding: 0.8rem 1.2rem;
+      border-radius: 10px;
+      margin-bottom: 1.5rem;
+      transition: all 0.3s ease;
     }
 
     .form-select:focus {
-      background-color: rgba(255, 255, 255, 0.2);
-      color: var(--text-color);
-      border-color: var(--main-color);
-      box-shadow: 0 0 0 0.25rem rgba(0, 255, 231, 0.25);
+      background: rgba(0, 0, 0, 0.5);
+      border-color: var(--primary-color);
+      color: var(--light-color);
+      box-shadow: 0 0 10px rgba(0, 247, 255, 0.3);
     }
 
-    .code-box {
-      background: rgba(0, 255, 231, 0.1);
-      border: 1px solid var(--main-color);
-      border-radius: 8px;
+    .progress-container {
+      height: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      margin: 1.5rem 0;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+      border-radius: 10px;
+      transition: width 0.3s ease;
+      position: relative;
+    }
+
+    .progress-bar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, 
+        rgba(255,255,255,0) 0%, 
+        rgba(255,255,255,0.3) 50%, 
+        rgba(255,255,255,0) 100%);
+      animation: shine 2s infinite;
+    }
+
+    @keyframes shine {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    .timer {
+      font-size: 1.4rem;
+      margin: 1rem 0;
+      font-weight: 300;
+      color: var(--primary-color);
+    }
+
+    .code-display {
+      background: rgba(0, 0, 0, 0.5);
+      border: 2px solid var(--primary-color);
+      border-radius: 10px;
       padding: 1.5rem;
-      margin-top: 1.5rem;
+      margin-top: 2rem;
       display: none;
       animation: fadeIn 0.5s ease-out;
     }
@@ -94,130 +175,151 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .progress {
-      height: 10px;
-      background-color: rgba(255, 255, 255, 0.1);
+    .code-value {
+      font-family: 'Courier New', monospace;
+      font-size: 1.8rem;
+      font-weight: bold;
+      letter-spacing: 3px;
+      color: var(--primary-color);
       margin: 1rem 0;
-    }
-
-    .progress-bar {
-      background-color: var(--main-color);
-      transition: width 0.3s ease;
-    }
-
-    .timer {
-      font-size: 1.2rem;
-      margin: 1rem 0;
+      text-shadow: 0 0 10px rgba(0, 247, 255, 0.5);
     }
 
     .mission-info {
-      background: rgba(0, 255, 231, 0.05);
-      border-left: 3px solid var(--main-color);
-      padding: 0.5rem 1rem;
+      background: rgba(0, 247, 255, 0.05);
+      border-left: 3px solid var(--primary-color);
+      padding: 0.8rem;
       margin: 1rem 0;
+      border-radius: 5px;
       display: none;
     }
 
-    .speed-control {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin: 1rem 0;
-    }
-
-    .speed-btn {
-      background: rgba(0, 255, 231, 0.2);
-      border: 1px solid var(--main-color);
-      color: var(--main-color);
-      border-radius: 20px;
-      padding: 0.25rem 0.75rem;
-      font-size: 0.8rem;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .speed-btn:hover, .speed-btn.active {
-      background: var(--main-color);
-      color: #000;
-    }
-
     .history-item {
-      background: rgba(0, 255, 231, 0.05);
-      border-radius: 5px;
-      padding: 0.5rem;
-      margin-bottom: 0.5rem;
-      font-size: 0.9rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
     }
 
-    @media (max-width: 576px) {
+    .history-item:hover {
+      background: rgba(0, 247, 255, 0.1);
+      transform: translateX(5px);
+    }
+
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .floating {
+      animation: floating 3s ease-in-out infinite;
+    }
+
+    @keyframes floating {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0px); }
+    }
+
+    @media (max-width: 768px) {
       .title {
-        font-size: 1.8rem;
+        font-size: 2rem;
+      }
+      .glass-card {
+        padding: 1.5rem;
       }
     }
   </style>
 </head>
 <body>
-  <div class="main-container text-center">
-    <h1 class="title animate__animated animate__fadeIn"><i class="fas fa-rocket me-2"></i>Get Mã Yeumoney</h1>
-    
-    <div class="mb-4">
-      <select class="form-select" id="missionSelect">
-        <option value="">-- Chọn từ khóa nhiệm vụ --</option>
-        <option value="36">Nhiệm vụ vn88</option>
-        <option value="66">Nhiệm vụ w88 w88xlm</option>
-        <option value="67">Nhiệm vụ fun88</option>
-        <option value="23">Nhiệm vụ v9bet</option>
-        <option value="30">Nhiệm vụ w88</option>
-        <option value="37">Nhiệm vụ fb88</option>
-        <option value="41">Nhiệm vụ bk8</option>
-        <option value="44">Nhiệm vụ m88</option>
-        <option value="42">Nhiệm vụ 188bet</option>
-      </select>
-      
-      <div class="mission-info" id="missionInfo">
-        <small><i class="fas fa-info-circle me-1"></i> <span id="missionUrl"></span></small>
+  <!-- Animated Background Particles -->
+  <div class="particles" id="particles-js"></div>
+
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-md-10">
+        <div class="glass-card text-center floating">
+          <h1 class="title">
+            <i class="fas fa-rocket me-2"></i>GALAXY BYPASS PREMIUM
+          </h1>
+          
+          <div class="mb-4">
+            <select class="form-select" id="missionSelect">
+              <option value="">-- Chọn nhiệm vụ --</option>
+              <option value="36">Nhiệm vụ vn88</option>
+              <option value="66">Nhiệm vụ w88 w88xlm</option>
+              <option value="67">Nhiệm vụ fun88</option>
+              <option value="23">Nhiệm vụ v9bet</option>
+              <option value="30">Nhiệm vụ w88</option>
+              <option value="37">Nhiệm vụ fb88</option>
+              <option value="41">Nhiệm vụ bk8</option>
+              <option value="44">Nhiệm vụ m88</option>
+              <option value="42">Nhiệm vụ 188bet</option>
+            </select>
+            
+            <div class="mission-info text-start" id="missionInfo">
+              <div class="d-flex align-items-center mb-2">
+                <i class="fas fa-info-circle me-2" style="color: var(--primary-color);"></i>
+                <h6 class="mb-0">Thông tin nhiệm vụ</h6>
+              </div>
+              <div><small><strong>URL chính:</strong> <span id="missionUrl" class="text-info"></span></small></div>
+              <div><small><strong>URL bài viết:</strong> <span id="missionArticle" class="text-info"></span></small></div>
+            </div>
+            
+            <button class="btn-neon" id="startBtn">
+              <i class="fas fa-play me-2"></i>BẮT ĐẦU GET MÃ
+            </button>
+          </div>
+          
+          <div class="timer" id="countdown"></div>
+          <div class="progress-container">
+            <div class="progress-bar" id="progressBar" role="progressbar" style="width: 0%"></div>
+          </div>
+          
+          <div class="code-display" id="codeBox">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h5 class="mb-0"><i class="fas fa-key me-2"></i>Mã xác nhận</h5>
+              <div class="badge bg-primary">MỚI</div>
+            </div>
+            <div class="code-value" id="codeValue">••••••••••</div>
+            <div class="d-flex justify-content-center gap-3">
+              <button class="btn-neon btn-sm" id="copyBtn">
+                <i class="fas fa-copy me-2"></i>Copy
+              </button>
+              <button class="btn-neon btn-sm" id="saveBtn">
+                <i class="fas fa-save me-2"></i>Lưu lại
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- History Section -->
+        <div class="glass-card mt-4" id="historySection" style="display: none;">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4 class="mb-0"><i class="fas fa-history me-2"></i>Lịch sử mã</h4>
+            <button class="btn-neon btn-sm" id="clearHistoryBtn">
+              <i class="fas fa-trash me-2"></i>Xóa
+            </button>
+          </div>
+          <div id="historyList"></div>
+        </div>
       </div>
-      
-      <button class="btn btn-primary btn-lg w-100" id="startBtn">
-        <i class="fas fa-play me-2"></i>Bắt đầu get mã
-      </button>
-    </div>
-    
-    <div class="speed-control" id="speedControl" style="display: none;">
-      <div class="speed-btn" data-speed="1">1x</div>
-      <div class="speed-btn active" data-speed="2">2x</div>
-      <div class="speed-btn" data-speed="4">4x</div>
-      <div class="speed-btn" data-speed="8">8x</div>
-    </div>
-    
-    <div class="timer" id="countdown"></div>
-    <div class="progress">
-      <div class="progress-bar" id="progressBar" role="progressbar" style="width: 0%"></div>
-    </div>
-    
-    <div class="code-box" id="codeBox">
-      <div class="mb-3">
-        <strong>Mã xác nhận:</strong> 
-        <span class="fs-4 fw-bold" id="codeValue">...</span>
-      </div>
-      <button class="btn btn-primary" id="copyBtn">
-        <i class="fas fa-copy me-2"></i>Copy
-      </button>
-      <button class="btn btn-outline-light ms-2" id="saveBtn">
-        <i class="fas fa-save me-2"></i>Lưu
-      </button>
-    </div>
-    
-    <div class="mt-4 text-start" id="historySection" style="display: none;">
-      <h5><i class="fas fa-history me-2"></i>Lịch sử mã</h5>
-      <div id="historyList"></div>
     </div>
   </div>
 
   <!-- Bootstrap JS Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Particles.js -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   
   <script>
+    // Mission data
     const missions = {
       "36": {
         name: "Nhiệm vụ vn88",
@@ -266,59 +368,44 @@
       }
     };
 
+    // App state
     let currentCode = null;
     let currentMission = null;
     let clk = generateRandom("0123456789", 10);
-    let speedMultiplier = 2; // Default speed (2x faster)
     let history = JSON.parse(localStorage.getItem('codeHistory')) || [];
+    let isProcessing = false;
 
     // DOM elements
     const btn = document.getElementById("startBtn");
     const missionSelect = document.getElementById("missionSelect");
     const missionInfo = document.getElementById("missionInfo");
     const missionUrl = document.getElementById("missionUrl");
+    const missionArticle = document.getElementById("missionArticle");
     const countdown = document.getElementById("countdown");
     const progressBar = document.getElementById("progressBar");
     const codeBox = document.getElementById("codeBox");
     const codeValue = document.getElementById("codeValue");
     const copyBtn = document.getElementById("copyBtn");
     const saveBtn = document.getElementById("saveBtn");
-    const speedControl = document.getElementById("speedControl");
-    const speedBtns = document.querySelectorAll(".speed-btn");
     const historySection = document.getElementById("historySection");
     const historyList = document.getElementById("historyList");
+    const clearHistoryBtn = document.getElementById("clearHistoryBtn");
 
     // Initialize
+    initParticles();
     updateHistoryDisplay();
     if (history.length > 0) {
       historySection.style.display = 'block';
     }
 
     // Event listeners
-    missionSelect.addEventListener('change', function() {
-      const id = this.value;
-      if (missions[id]) {
-        missionInfo.style.display = 'block';
-        missionUrl.textContent = missions[id].urlChinh;
-        currentMission = missions[id];
-      } else {
-        missionInfo.style.display = 'none';
-        currentMission = null;
-      }
-    });
-
+    missionSelect.addEventListener('change', updateMissionInfo);
     btn.addEventListener('click', startMission);
     copyBtn.addEventListener('click', copyCode);
     saveBtn.addEventListener('click', saveCode);
+    clearHistoryBtn.addEventListener('click', clearHistory);
 
-    speedBtns.forEach(btn => {
-      btn.addEventListener('click', function() {
-        speedBtns.forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-        speedMultiplier = parseInt(this.dataset.speed);
-      });
-    });
-
+    // Functions
     function generateRandom(charset, length) {
       let result = '';
       for (let i = 0; i < length; i++) {
@@ -327,82 +414,106 @@
       return result;
     }
 
+    function updateMissionInfo() {
+      const id = missionSelect.value;
+      if (missions[id]) {
+        missionInfo.style.display = 'block';
+        missionUrl.textContent = missions[id].urlChinh;
+        missionArticle.textContent = missions[id].urlBaiViet;
+        currentMission = missions[id];
+      } else {
+        missionInfo.style.display = 'none';
+        currentMission = null;
+      }
+    }
+
     async function startMission() {
+      if (isProcessing) return;
+      
       const id = missionSelect.value;
       if (!missions[id]) {
-        showAlert('Vui lòng chọn nhiệm vụ hợp lệ.', 'warning');
+        showAlert('Vui lòng chọn nhiệm vụ hợp lệ', 'warning');
         return;
       }
 
       const cfg = missions[id];
       currentMission = cfg;
+      isProcessing = true;
       
       // Reset UI
       btn.disabled = true;
-      btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Đang xử lý...';
-      countdown.textContent = "";
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>ĐANG XỬ LÝ...';
+      countdown.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Đang khởi tạo...';
       codeBox.style.display = "none";
-      codeValue.textContent = "...";
+      codeValue.textContent = "••••••••••";
       progressBar.style.width = "0%";
       currentCode = null;
-      speedControl.style.display = 'flex';
 
       try {
-        // Show loading animation
-        countdown.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Đang khởi tạo...';
+        // Phase 1: Initial request
+        await guiRequestLan1(cfg);
+        countdown.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Đang xử lý bước 1/2...';
+        progressBar.style.width = "25%";
         
-        // Send requests with progress feedback
-        await Promise.all([
-          guiRequestLan1(cfg),
-          delay(500).then(() => guiRequestLan2(cfg))
-        ]);
+        // Small delay between requests
+        await delay(1000);
         
-        // Start countdown with the selected speed
-        const totalTime = 75000 / speedMultiplier;
+        // Phase 2: Secondary request
+        await guiRequestLan2(cfg);
+        countdown.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Đang xử lý bước 2/2...';
+        progressBar.style.width = "50%";
+        
+        // Main processing with smooth progress
+        const totalTime = 75000; // 75 seconds total
         const startTime = Date.now();
         
         const interval = setInterval(async () => {
           const elapsed = Date.now() - startTime;
           const remaining = Math.max(0, Math.ceil((totalTime - elapsed) / 1000));
-          const percent = Math.min(100, (elapsed / totalTime) * 100);
+          const percent = Math.min(100, 50 + (elapsed / totalTime) * 50);
 
           countdown.innerHTML = `<i class="fas fa-clock me-2"></i>Vui lòng đợi ${remaining} giây...`;
           progressBar.style.width = percent + "%";
 
           if (elapsed >= totalTime) {
             clearInterval(interval);
-            countdown.innerHTML = '<i class="fas fa-check-circle me-2"></i>Thành công!';
+            countdown.innerHTML = '<i class="fas fa-check-circle me-2"></i>HOÀN THÀNH!';
+            progressBar.style.width = "100%";
             
             try {
+              // Get the final code
               currentCode = await layMa(cfg);
-              codeValue.textContent = currentCode || "Không lấy được mã";
-              codeBox.style.display = "block";
-              codeBox.classList.add('animate__animated', 'animate__fadeIn');
-              
-              // Add to history
-              addToHistory(currentCode, cfg.name);
+              if (currentCode) {
+                codeValue.textContent = currentCode;
+                codeBox.style.display = "block";
+                addToHistory(currentCode, cfg.name);
+                showAlert('Lấy mã thành công!', 'success');
+              } else {
+                showAlert('Không lấy được mã xác nhận', 'danger');
+              }
             } catch (e) {
-              showAlert('Lỗi khi lấy mã.', 'danger');
+              console.error("Error getting code:", e);
+              showAlert('Lỗi khi lấy mã xác nhận', 'danger');
             }
             
             resetButton();
-            speedControl.style.display = 'none';
           }
-        }, 200);
+        }, 500);
       } catch (e) {
-        showAlert('Lỗi trong quá trình xử lý.', 'danger');
+        console.error("Error during mission:", e);
+        showAlert('Lỗi trong quá trình xử lý', 'danger');
         resetButton();
-        speedControl.style.display = 'none';
       }
     }
 
     function resetButton() {
+      isProcessing = false;
       btn.disabled = false;
-      btn.innerHTML = '<i class="fas fa-play me-2"></i>Bắt đầu get mã';
+      btn.innerHTML = '<i class="fas fa-play me-2"></i>BẮT ĐẦU GET MÃ';
     }
 
     function delay(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms / speedMultiplier));
+      return new Promise(resolve => setTimeout(resolve, ms));
     }
 
     async function guiRequestLan1(cfg) {
@@ -428,16 +539,24 @@
     async function layMa(cfg) {
       const randomCode = generateRandom('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', 10);
       const url = `https://traffic-user.net/GET_MA.php?codexn=${randomCode}&url=${encodeURIComponent(cfg.urlBaiViet)}&loai_traffic=${encodeURIComponent(cfg.urlChinh)}&clk=${clk}`;
-      const res = await fetch(url, { method: "POST" });
-      const html = await res.text();
-      const match = html.match(/<span[^>]*id=["']layma_me_vuatraffic["'][^>]*>\s*([\d]{4,})\s*<\/span>/i);
-      return match ? match[1].trim() : null;
+      try {
+        const res = await fetch(url, { method: "POST" });
+        const html = await res.text();
+        const match = html.match(/<span[^>]*id=["']layma_me_vuatraffic["'][^>]*>\s*([\d]{4,})\s*<\/span>/i);
+        return match ? match[1].trim() : null;
+      } catch (e) {
+        console.error("Error in layMa:", e);
+        return null;
+      }
     }
 
     function copyCode() {
       if (!currentCode) return;
       navigator.clipboard.writeText(currentCode).then(() => {
-        showAlert('Đã copy mã vào clipboard!', 'success');
+        showAlert('Đã sao chép mã vào clipboard!', 'success');
+      }).catch(err => {
+        console.error("Copy failed:", err);
+        showAlert('Lỗi khi sao chép mã', 'danger');
       });
     }
 
@@ -449,7 +568,12 @@
 
     function addToHistory(code, missionName) {
       const timestamp = new Date().toLocaleString();
-      history.unshift({ code, missionName, timestamp });
+      history.unshift({ 
+        code, 
+        missionName, 
+        timestamp,
+        missionId: missionSelect.value
+      });
       
       // Keep only last 10 items
       if (history.length > 10) {
@@ -463,32 +587,99 @@
 
     function updateHistoryDisplay() {
       historyList.innerHTML = '';
+      if (history.length === 0) {
+        historyList.innerHTML = '<div class="text-center py-3 text-muted">Chưa có lịch sử</div>';
+        historySection.style.display = 'none';
+        return;
+      }
+      
       history.forEach(item => {
         const div = document.createElement('div');
         div.className = 'history-item';
         div.innerHTML = `
-          <div><strong>${item.missionName}</strong></div>
-          <div>Mã: <code>${item.code}</code></div>
-          <small class="text-muted">${item.timestamp}</small>
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <strong>${item.missionName}</strong>
+            <small class="text-muted">${item.timestamp}</small>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <code class="code-value-sm">${item.code}</code>
+            <button class="btn-history-copy" data-code="${item.code}">
+              <i class="fas fa-copy"></i>
+            </button>
+          </div>
         `;
         historyList.appendChild(div);
       });
+
+      // Add event listeners to history copy buttons
+      document.querySelectorAll('.btn-history-copy').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const code = this.getAttribute('data-code');
+          navigator.clipboard.writeText(code).then(() => {
+            showAlert('Đã sao chép mã từ lịch sử', 'info');
+          });
+        });
+      });
+    }
+
+    function clearHistory() {
+      if (confirm('Bạn có chắc muốn xóa toàn bộ lịch sử?')) {
+        history = [];
+        localStorage.setItem('codeHistory', JSON.stringify(history));
+        updateHistoryDisplay();
+        showAlert('Đã xóa lịch sử', 'info');
+      }
     }
 
     function showAlert(message, type) {
-      const alert = document.createElement('div');
-      alert.className = `alert alert-${type} position-fixed top-0 start-50 translate-middle-x mt-3 animate__animated animate__fadeInDown`;
-      alert.style.zIndex = '9999';
-      alert.innerHTML = `
-        <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'warning' ? 'fa-exclamation-triangle' : 'fa-times-circle'} me-2"></i>
+      const alertBox = document.createElement('div');
+      alertBox.className = `alert alert-${type} position-fixed top-20 start-50 translate-middle-x z-index-9999`;
+      alertBox.style.zIndex = '9999';
+      alertBox.style.minWidth = '300px';
+      alertBox.style.textAlign = 'center';
+      alertBox.style.border = 'none';
+      alertBox.style.boxShadow = '0 4px 20px rgba(0,0,0,0.15)';
+      alertBox.innerHTML = `
+        <i class="fas ${getIconForType(type)} me-2"></i>
         ${message}
       `;
-      document.body.appendChild(alert);
+      
+      document.body.appendChild(alertBox);
       
       setTimeout(() => {
-        alert.classList.add('animate__fadeOutUp');
-        setTimeout(() => alert.remove(), 500);
+        alertBox.classList.add('animate__animated', 'animate__fadeOutUp');
+        setTimeout(() => alertBox.remove(), 500);
       }, 3000);
+    }
+
+    function getIconForType(type) {
+      switch(type) {
+        case 'success': return 'fa-check-circle';
+        case 'danger': return 'fa-times-circle';
+        case 'warning': return 'fa-exclamation-triangle';
+        default: return 'fa-info-circle';
+      }
+    }
+
+    function initParticles() {
+      particlesJS('particles-js', {
+        particles: {
+          number: { value: 80, density: { enable: true, value_area: 800 } },
+          color: { value: "#00f7ff" },
+          shape: { type: "circle" },
+          opacity: { value: 0.5, random: true },
+          size: { value: 3, random: true },
+          line_linked: { enable: true, distance: 150, color: "#00f7ff", opacity: 0.2, width: 1 },
+          move: { enable: true, speed: 2, direction: "none", random: true, straight: false, out_mode: "out" }
+        },
+        interactivity: {
+          detect_on: "canvas",
+          events: {
+            onhover: { enable: true, mode: "repulse" },
+            onclick: { enable: true, mode: "push" }
+          }
+        }
+      });
     }
   </script>
 </body>
